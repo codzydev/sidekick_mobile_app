@@ -1,12 +1,9 @@
-import { Button, SafeAreaView, StyleSheet } from "react-native";
-
 import Stepper from "@/components/stepper/stepper";
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedView } from "@/components/ThemedView";
 import { useState } from "react";
+import { Button, SafeAreaView, StyleSheet, View } from "react-native";
 
 const HomeScreen = () => {
-  const backgroundColor = useThemeColor({}, "background");
-
   const steps = [
     "Start",
     "Details",
@@ -14,6 +11,7 @@ const HomeScreen = () => {
     "Donex",
     "Chana",
     "Moiney",
+    "Moineyxxx",
     "Akash",
     "Sam",
   ];
@@ -23,28 +21,28 @@ const HomeScreen = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
 
+  const handleSubmit = () => {
+    console.log("Form submitted!");
+  };
+
   const handlePrev = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
 
+  const isLastStep = currentStep === steps.length - 1;
+
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor,
-      }}
-    >
-      <Stepper steps={steps} currentStep={currentStep} />
-      <Button
-        title="Next"
-        onPress={() =>
-          setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1))
-        }
-      />
-      <Button title="prev" onPress={handlePrev} />
-    </SafeAreaView>
+    <ThemedView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stepper steps={steps} currentStep={currentStep} />
+
+        <View style={{ paddingHorizontal: 16, marginTop: 20, gap: 10 }}>
+          {!isLastStep && <Button title="Next" onPress={handleNext} />}
+          {isLastStep && <Button title="Done" onPress={handleSubmit} />}
+          {currentStep > 0 && <Button title="Previous" onPress={handlePrev} />}
+        </View>
+      </SafeAreaView>
+    </ThemedView>
   );
 };
 
