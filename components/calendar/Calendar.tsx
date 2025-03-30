@@ -1,5 +1,5 @@
-import { Colors } from "@/constants/Colors";
-import { Margin } from "@/constants/Spacing";
+import { Colors } from "@/constants/colors";
+import { Margin } from "@/constants/spacing";
 import {
   calendarData,
   dayData,

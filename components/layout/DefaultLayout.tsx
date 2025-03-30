@@ -1,4 +1,4 @@
-import { Padding } from "@/constants/Spacing";
+import { Padding } from "@/constants/spacing";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import React, { ReactNode } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";

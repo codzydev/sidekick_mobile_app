@@ -1,4 +1,4 @@
-import { Colors } from "@/constants/Colors";
+import { Colors } from "@/constants/colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";

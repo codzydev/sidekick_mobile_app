@@ -1,9 +1,9 @@
-import { Colors } from "@/constants/Colors";
-import { BorderRadius, Padding } from "@/constants/Spacing";
+import { Colors } from "@/constants/colors";
+import { BorderRadius, Padding } from "@/constants/spacing";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { ThemedText } from "../common";
 
 interface EventDetails {
@@ -15,15 +15,21 @@ interface EventDetails {
 interface EventCardProps {
   event: Event;
   details: EventDetails;
+  onPress: (event: Event) => void;
 }
 
-export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
+export const EventCard: React.FC<EventCardProps> = ({
+  event,
+  details,
+  onPress,
+}) => {
   const { topOffset, height, duration } = details;
   const backgroundColor = useThemeColor({}, "card");
   const borderRightColor = Colors.task[event.status];
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => onPress(event)}
       key={event.id}
       style={[
         styles.eventCard,
@@ -56,7 +62,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
           {duration}
         </ThemedText>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

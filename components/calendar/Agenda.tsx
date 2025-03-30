@@ -1,7 +1,8 @@
-import { Padding } from "@/constants/Spacing";
+import { Padding } from "@/constants/spacing";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
-import React from "react";
+import { router } from "expo-router";
+import React, { useCallback } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { EventCard } from "./EventCard";
 import { TimeSlots } from "./TimeSlots";
@@ -82,6 +83,12 @@ const events: Array<Event> = [
 
 export const Agenda = () => {
   const backgroundColor = useThemeColor({}, "background");
+
+  const onEventPress = useCallback((event: Event) => {
+    // console.log("Event pressed:", event);
+    router.push("/task");
+  }, []);
+
   return (
     <ScrollView
       contentContainerStyle={[styles.scrollContainer, { backgroundColor }]}
@@ -91,6 +98,7 @@ export const Agenda = () => {
         <TimeSlots timeSlots={timeSlots} events={events} />
         {events.map((event) => (
           <EventCard
+            onPress={onEventPress}
             key={event.id}
             event={event}
             details={getEventDetails(event.duration)}

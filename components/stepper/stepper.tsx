@@ -1,15 +1,14 @@
-import { Colors } from "@/constants/Colors";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring,
-    withTiming,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import { ThemedText } from "../common";
 import { IconSymbol } from "../ui/IconSymbol";
+import { Colors } from "@/constants";
 
 const { width } = Dimensions.get("window");
 
@@ -21,10 +20,9 @@ interface StepperProps {
 const CIRCLE_SIZE = 30;
 const STEP_ITEM_WIDTH = 60;
 
-const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
+export const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
   const stepSpacing = width / steps.length;
   const progressWidth = useSharedValue(0);
-  const backgroundColor = useThemeColor({}, "card");
 
   useEffect(() => {
     progressWidth.value = withTiming(currentStep * stepSpacing, {
@@ -185,5 +183,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default Stepper;
