@@ -1,6 +1,6 @@
 import { Agenda, Calendar } from "@/components";
 import Seperator from "@/components/common/Seperator";
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedView } from "@/components/common/ThemedView";
 import { Margin, Padding } from "@/constants/spacing";
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";

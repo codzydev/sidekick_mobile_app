@@ -1,8 +1,7 @@
-import { Stepper } from "@/components";
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedView } from "@/components/common/ThemedView";
 import { Link, Redirect } from "expo-router";
 import { useState } from "react";
-import { Button, SafeAreaView, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const HomeScreen = () => {
   const steps = [
@@ -33,15 +32,7 @@ const HomeScreen = () => {
 
   return (
     <ThemedView style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stepper steps={steps} currentStep={currentStep} />
-        <Link href="/task">Go to Tasks --------- </Link>
-        <View style={{ paddingHorizontal: 16, marginTop: 20, gap: 10 }}>
-          {!isLastStep && <Button title="Next" onPress={handleNext} />}
-          {isLastStep && <Button title="Done" onPress={handleSubmit} />}
-          {currentStep > 0 && <Button title="Previous" onPress={handlePrev} />}
-        </View>
-      </SafeAreaView>
+      <Link href="/task">Go to Tasks --------- </Link>
     </ThemedView>
   );
 };

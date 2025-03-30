@@ -1,3 +1,4 @@
+import { Colors } from "@/constants";
 import React, { useEffect } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
@@ -6,21 +7,25 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { ThemedText } from "../common";
+import { ThemedText } from "../common/ThemedText";
 import { IconSymbol } from "../ui/IconSymbol";
-import { Colors } from "@/constants";
 
 const { width } = Dimensions.get("window");
 
 interface StepperProps {
   steps: string[];
   currentStep: number;
+  titleEnabled?: boolean;
 }
 
 const CIRCLE_SIZE = 30;
 const STEP_ITEM_WIDTH = 60;
 
-export const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
+export const Stepper: React.FC<StepperProps> = ({
+  steps,
+  currentStep,
+  titleEnabled = false,
+}) => {
   const stepSpacing = width / steps.length;
   const progressWidth = useSharedValue(0);
 
@@ -96,9 +101,11 @@ export const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
             </ThemedText>
           )}
         </View>
-        <Animated.Text style={[animatedLabelStyle]}>
-          <ThemedText style={styles.stepLabel}>{step}</ThemedText>
-        </Animated.Text>
+        {titleEnabled && (
+          <Animated.Text style={[animatedLabelStyle]}>
+            <ThemedText style={styles.stepLabel}>{step}</ThemedText>
+          </Animated.Text>
+        )}
       </View>
     );
   };
@@ -142,11 +149,10 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   lineForeground: {
-    height: 2,
+    height: 3,
     position: "absolute",
   },
   stepsContainer: {
-    height: 60,
     position: "relative",
   },
   stepItem: {

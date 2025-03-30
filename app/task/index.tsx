@@ -1,17 +1,11 @@
 import { Stepper } from "@/components";
+import { Steps } from "@/constants";
 import React, { useState } from "react";
 import { Button, StyleSheet, View } from "react-native";
 
 const TaskWrapper = () => {
-  const steps = [
-    "Job Details",
-    "Address",
-    "Contact",
-    "Payment",
-    "Review",
-    "Done",
-  ];
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const steps = Steps;
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));

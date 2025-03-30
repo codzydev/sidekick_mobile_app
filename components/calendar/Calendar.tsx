@@ -23,7 +23,7 @@ import {
   ViewStyle,
   type ListRenderItemInfo,
 } from "react-native";
-import { ThemedText } from "../common";
+import { ThemedText } from "../common/ThemedText";
 
 type CalendarProps = {
   width: number;

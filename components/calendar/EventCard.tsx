@@ -4,7 +4,7 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { ThemedText } from "../common";
+import { ThemedText } from "../common/ThemedText";
 
 interface EventDetails {
   topOffset: number;

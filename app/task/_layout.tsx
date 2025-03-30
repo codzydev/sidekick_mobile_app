@@ -1,4 +1,4 @@
-import { ThemedView } from "@/components/ThemedView";
+import { ThemedView } from "@/components/common/ThemedView";
 
 import { layoutSpacings } from "@/constants";
 import React from "react";
