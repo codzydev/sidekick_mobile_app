@@ -25,7 +25,6 @@ export const Colors = {
   },
   activeOpacity: 1,
   inactiveOpacity: 0.45,
-  // primary: "#F7374F",
   primary: "#F7374F",
   secondary: "#F9A826",
   tertiary: "#F9A826",

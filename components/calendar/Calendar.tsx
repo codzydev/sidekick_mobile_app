@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { Margin } from "@/constants/Spacing";
 import {
   calendarData,
   dayData,
@@ -14,26 +15,32 @@ import React, {
   type ReactElement,
 } from "react";
 import {
-  Dimensions,
   FlatList,
   StyleSheet,
   TouchableOpacity,
   useColorScheme,
   View,
   type ListRenderItemInfo,
-  type ScaledSize,
 } from "react-native";
 import { ThemedText } from "../common";
+import Seperator from "../common/Seperator";
 
-export const Calendar = (): ReactElement => {
-  const windowDimensions: ScaledSize = Dimensions.get("window");
-  const dayItemWidth = useRef<number>(windowDimensions.width / 7);
+type CalendarProps = {
+  width: number; // 👈 accept width from parent
+};
+
+export const Calendar = ({ width }: CalendarProps): ReactElement => {
+  const dayItemWidth = useRef<number>(width / 7); // 👈 use prop width
   const [dateData, setDateData] = useState<calendarData | undefined>(undefined);
-  const [todayIndex, setTodayIndex] = useState<number>(0);
+  const [todayIndex, setTodayIndex] = useState<number | undefined>(undefined);
   const [currentMonth, setCurrentMonth] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
   const isDark = useColorScheme() === "dark";
   const color = isDark ? Colors.dark.text : Colors.light.text;
+
+  useEffect(() => {
+    dayItemWidth.current = width / 7; // Recalculate if width changes
+  }, [width]);
 
   useEffect(() => {
     const currentMonthData = getCurrentMonth();
@@ -53,7 +60,6 @@ export const Calendar = (): ReactElement => {
     }
   }, [dateData]);
 
-  // Helper functions
   const getCurrentMonth = (): calendarData => {
     const now: DateTime = DateTime.now();
     return getDaysInMonthSplitByWeek(now.month, now.year, true);
@@ -62,13 +68,9 @@ export const Calendar = (): ReactElement => {
   const getMonthRange = (startWeek: weekData, endWeek: weekData): string => {
     const startMonth = getMonthName(startWeek[0].date);
     const endMonth = getMonthName(endWeek[endWeek.length - 1].date);
-
-    // If both months are the same, return just the start month with its year
     if (startMonth === endMonth) {
-      return `${startMonth}`; // Only the month name
+      return `${startMonth}`;
     }
-
-    // If the months are different, return the range with the starting and ending months
     return `${startWeek[0].date.toFormat("MMM")} / ${endMonth}`;
   };
 
@@ -81,13 +83,9 @@ export const Calendar = (): ReactElement => {
   };
 
   const handleScroll = (event: any) => {
-    const index = Math.round(
-      event.nativeEvent.contentOffset.x / windowDimensions.width
-    );
-    if (dateData && index !== todayIndex) {
-      setTodayIndex(index);
+    const index = Math.round(event.nativeEvent.contentOffset.x / width);
+    if (dateData) {
       setCurrentMonth(getMonthRange(dateData[index], dateData[index]));
-      //   console.log("Current Week:", dateData[index]); //curernt week
     }
   };
 
@@ -137,7 +135,6 @@ export const Calendar = (): ReactElement => {
               ...styles.dayItem,
               height: dayItemWidth.current,
               width: dayItemWidth.current,
-
               backgroundColor:
                 isDark && isSelectedDay(day.date)
                   ? Colors.light.background
@@ -170,13 +167,12 @@ export const Calendar = (): ReactElement => {
   };
 
   return (
-    <View>
+    <View style={{ width }}>
       <ThemedText style={styles.headerText} type="title">
         {currentMonth}
       </ThemedText>
-      {/* <Text style={styles.headerText}>{currentMonth}</Text> */}
       <View style={styles.weekHeaderContainer}>{generateCurrentWeek()}</View>
-      {dateData && (
+      {dateData && todayIndex !== undefined && (
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -185,22 +181,21 @@ export const Calendar = (): ReactElement => {
             renderWeek(item)
           }
           snapToAlignment="start"
-          snapToInterval={windowDimensions.width}
+          snapToInterval={width}
           decelerationRate="fast"
           initialScrollIndex={todayIndex}
-          getItemLayout={(
-            data: ArrayLike<weekData> | null | undefined,
-            index: number
-          ) => ({
-            length: windowDimensions.width,
-            offset: windowDimensions.width * index,
+          getItemLayout={(_, index) => ({
+            length: width,
+            offset: width * index,
             index,
           })}
           onScroll={handleScroll}
           scrollEventThrottle={16}
           keyExtractor={(item: weekData, index: number) => index.toString()}
+          contentContainerStyle={styles.contentContainerStyle}
         />
       )}
+      <Seperator />
     </View>
   );
 };
@@ -209,8 +204,8 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 18,
-    marginLeft: 10,
+    marginBottom: Margin.LARGE,
+    marginLeft: Margin.SMALL,
   },
   weekHeaderText: {
     fontWeight: "600",
@@ -223,5 +218,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
+  },
+  contentContainerStyle: {
+    marginBottom: Margin.MEDIUM,
   },
 });
