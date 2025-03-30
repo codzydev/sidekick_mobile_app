@@ -1,3 +1,14 @@
+export type EventStatus =
+  | "todo"
+  | "inProgress"
+  | "completed"
+  | "cancelled"
+  | "pending"
+  | "overdue"
+  | "upcoming"
+  | "scheduled"
+  | "rescheduled"
+  | "onHold";
 export interface Event {
   id: string;
   title: string;
@@ -11,4 +22,5 @@ export interface Event {
   postcode: string;
   country: string;
   suburb: string;
+  status: EventStatus;
 }

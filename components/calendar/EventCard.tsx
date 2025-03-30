@@ -1,4 +1,5 @@
-import { Padding } from "@/constants/Spacing";
+import { Colors } from "@/constants/Colors";
+import { BorderRadius, Padding } from "@/constants/Spacing";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";
@@ -19,6 +20,7 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
   const { topOffset, height, duration } = details;
   const backgroundColor = useThemeColor({}, "card");
+  const borderRightColor = Colors.task[event.status];
 
   return (
     <View
@@ -27,6 +29,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
         styles.eventCard,
         {
           backgroundColor,
+          borderRightColor,
         },
         {
           top: topOffset,
@@ -62,13 +65,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 60,
     right: 10,
-    borderRadius: 16,
-    overflow: "hidden",
-    elevation: 1,
-    shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
+    borderRadius: BorderRadius.LARGE,
+    borderRightWidth: BorderRadius.LARGE * 0.3,
   },
   eventInner: {
     flex: 1,

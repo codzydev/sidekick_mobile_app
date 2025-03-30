@@ -36,4 +36,17 @@ export const Colors = {
   primary: "#F7374F",
   secondary: "#F9A826",
   tertiary: "#F9A826",
+
+  task: {
+    todo: "#A8A29E",
+    inProgress: "#F59E0B",
+    completed: "#10B981",
+    cancelled: "#71717A",
+    pending: "#F9A826",
+    overdue: "#F7374F",
+    upcoming: "#F9A826",
+    scheduled: "#F9A826",
+    rescheduled: "#F9A826",
+    onHold: "#F97316",
+  },
 };

@@ -52,6 +52,7 @@ const events: Array<Event> = [
     postcode: "2037",
     country: "Australia",
     duration: "8:00 AM - 10:00 AM",
+    status: "completed",
   },
   {
     id: "3",
@@ -63,6 +64,7 @@ const events: Array<Event> = [
     postcode: "2042",
     country: "Australia",
     duration: "12:00 PM - 3:00 PM",
+    status: "inProgress",
   },
   {
     id: "4",
@@ -74,6 +76,7 @@ const events: Array<Event> = [
     postcode: "2041",
     country: "Australia",
     duration: "3:30 PM - 5:00 PM",
+    status: "todo",
   },
 ];
 
