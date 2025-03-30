@@ -130,12 +130,10 @@ const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    paddingVertical: 20,
-  },
+  wrapper: {},
   progressLineContainer: {
     position: "absolute",
-    top: 20 + CIRCLE_SIZE / 2,
+    top: CIRCLE_SIZE / 2,
     height: 3,
     zIndex: 0,
   },

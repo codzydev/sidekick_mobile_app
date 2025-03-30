@@ -5,15 +5,12 @@ import { Button, SafeAreaView, StyleSheet, View } from "react-native";
 
 const HomeScreen = () => {
   const steps = [
-    "Start",
-    "Details",
+    "Job Details",
+    "Address",
+    "Contact",
+    "Payment",
+    "Review",
     "Done",
-    "Donex",
-    "Chana",
-    "Moiney",
-    "Moineyxxx",
-    "Akash",
-    "Sam",
   ];
   const [currentStep, setCurrentStep] = useState(0);
 
