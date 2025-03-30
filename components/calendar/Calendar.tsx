@@ -37,7 +37,7 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
   const [currentMonth, setCurrentMonth] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
   const isDark = useColorScheme() === "dark";
-  const color = isDark ? Colors.dark.text : Colors.light.text;
+  const color = isDark ? Colors.dark.secondaryText : Colors.light.secondaryText;
 
   useEffect(() => {
     dayItemWidth.current = width / 7; // Recalculate if width changes
@@ -109,9 +109,9 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
           }}
         >
           <ThemedText
+            type="defaultSemiBold"
             style={{
               color: isWeekend ? Colors.primary : color,
-              ...styles.weekHeaderText,
             }}
           >
             {day}
@@ -146,17 +146,19 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
           >
             <ThemedText
               style={{
+                fontFamily: isSelectedDay(day.date)
+                  ? "Poppins_700Bold"
+                  : "Poppins_400Regular",
                 color: isDark
                   ? isSelectedDay(day.date)
-                    ? Colors.light.text
-                    : Colors.dark.text
+                    ? Colors.light.primaryText
+                    : Colors.dark.primaryText
                   : isSelectedDay(day.date)
-                  ? Colors.dark.text
-                  : Colors.light.text,
+                  ? Colors.dark.primaryText
+                  : Colors.light.primaryText,
                 opacity: isSelectedDay(day.date)
                   ? Colors.activeOpacity
                   : Colors.inactiveOpacity,
-                fontWeight: "600",
               }}
             >
               {day.date.day}
@@ -203,12 +205,7 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
 const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: Margin.LARGE,
     marginLeft: Margin.SMALL,
-  },
-  weekHeaderText: {
-    fontWeight: "600",
   },
   weekHeaderContainer: {
     flexDirection: "row",
@@ -219,7 +216,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 100,
   },
-  contentContainerStyle: {
-    marginBottom: Margin.MEDIUM,
-  },
+  contentContainerStyle: {},
 });

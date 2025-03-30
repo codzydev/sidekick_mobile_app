@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
@@ -17,7 +18,8 @@ interface TimeSlotsProps {
 
 export const TimeSlots: React.FC<TimeSlotsProps> = ({ timeSlots, events }) => {
   const isDark = useColorScheme() === "dark";
-  const color = isDark ? Colors.dark.text : Colors.light.text;
+  const color = isDark ? Colors.dark.secondaryText : Colors.light.secondaryText;
+  const borderColor = useThemeColor({}, "shadow");
 
   const parseTime = (time: string): number => {
     const [hourMin, period] = time.split(" ");
@@ -40,7 +42,9 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({ timeSlots, events }) => {
         return (
           <View key={index} style={[styles.row, { top: index * HOUR_HEIGHT }]}>
             <Text style={[styles.timeText, { color }]}>{slot.label}</Text>
-            {!shouldHideLine && <View style={styles.separator} />}
+            {!shouldHideLine && (
+              <View style={[styles.separator, { borderColor }]} />
+            )}
           </View>
         );
       })}
@@ -62,10 +66,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 13,
     marginTop: -7,
+    fontFamily: "Poppins_400Regular",
   },
   separator: {
     borderBottomWidth: 1,
-    borderColor: "#eee",
     position: "absolute",
     left: 60,
     right: 10,

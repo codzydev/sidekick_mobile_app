@@ -1,5 +1,5 @@
-import { Colors } from "@/constants/Colors";
 import { Padding } from "@/constants/Spacing";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { Event } from "@/types/agenda";
 import React from "react";
 import { StyleSheet, View } from "react-native";
@@ -18,12 +18,16 @@ interface EventCardProps {
 
 export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
   const { topOffset, height, duration } = details;
+  const backgroundColor = useThemeColor({}, "card");
 
   return (
     <View
       key={event.id}
       style={[
         styles.eventCard,
+        {
+          backgroundColor,
+        },
         {
           top: topOffset,
           height,
@@ -33,7 +37,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
       <View style={styles.eventInner}>
         <View style={styles.eventContent}>
           <View style={styles.cardHeader}>
-            <ThemedText numberOfLines={1} style={styles.eventTitle}>
+            <ThemedText
+              numberOfLines={1}
+              style={styles.eventTitle}
+              type="title"
+            >
               {event.title}
             </ThemedText>
           </View>
@@ -41,7 +49,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event, details }) => {
             {event.suburb} {event.state} {event.postcode}
           </ThemedText>
         </View>
-        <ThemedText style={styles.eventTime}>{duration}</ThemedText>
+        <ThemedText style={styles.eventTime} type="subtitle">
+          {duration}
+        </ThemedText>
       </View>
     </View>
   );
@@ -59,7 +69,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
-    backgroundColor: Colors.primary,
   },
   eventInner: {
     flex: 1,
@@ -74,18 +83,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   eventTitle: {
-    fontWeight: "bold",
-    fontSize: 16,
-    color: Colors.light.text,
+    fontWeight: "600",
   },
   eventDesc: {
     fontSize: 12,
     lineHeight: 18,
-    color: Colors.light.text,
   },
   eventTime: {
     fontSize: 13,
-    color: Colors.light.text,
-    fontWeight: "600",
   },
 });

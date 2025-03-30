@@ -44,7 +44,7 @@ const getEventDetails = (duration: string) => {
 const events: Array<Event> = [
   {
     id: "1",
-    title: "Interior wall painting – Smith Residence",
+    title: "Interview with users of the app",
     streetAddress: "12 Bellevue St",
     suburb: "Glebe",
     city: "Sydney",
@@ -100,10 +100,10 @@ export const Agenda = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    paddingVertical: Padding.LARGE * 2,
+    paddingTop: Padding.SMALL,
     paddingHorizontal: Padding.LARGE,
     backgroundColor: "red",
-    paddingBottom: Padding.LARGE * 4,
+    paddingBottom: Padding.LARGE * 10,
   },
   container: {
     height: HOUR_HEIGHT * timeSlots.length,

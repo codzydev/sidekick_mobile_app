@@ -8,20 +8,28 @@ const tintColorDark = "#fff";
 
 export const Colors = {
   light: {
-    text: "#2C2C2C",
+    primaryText: "#2C2C2C",
+    secondaryText: "#5A5A5A",
+    tertiaryText: "#xxx",
     background: "#FBFBFB",
     tint: tintColorLight,
     icon: "#687076",
     tabIconDefault: "#687076",
     tabIconSelected: tintColorLight,
+    card: "#F2F2F2",
+    shadow: "#E0E0E0",
   },
   dark: {
-    text: "#ECEDEE",
+    primaryText: "#ECEDEE", //for Main text, titles, readable on dark bg
+    secondaryText: "#A6A6A6", // for Subtext, labels, supporting content
+    tertiaryText: "#6E6E6E", //for, placeholders, low-importance text
     background: "#2C2C2C",
     tint: tintColorDark,
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
+    card: "#333338",
+    shadow: "#3A3A3A",
   },
   activeOpacity: 1,
   inactiveOpacity: 0.45,
