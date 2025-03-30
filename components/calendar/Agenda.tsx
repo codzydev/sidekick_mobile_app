@@ -100,8 +100,10 @@ export const Agenda = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    paddingVertical: 40,
-    paddingHorizontal: Padding.MEDIUM,
+    paddingVertical: Padding.LARGE * 2,
+    paddingHorizontal: Padding.LARGE,
+    backgroundColor: "red",
+    paddingBottom: Padding.LARGE * 4,
   },
   container: {
     height: HOUR_HEIGHT * timeSlots.length,

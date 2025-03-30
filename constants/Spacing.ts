@@ -7,7 +7,7 @@ export const Margin = {
 export const Padding = {
   SMALL: 10,
   MEDIUM: 14,
-  LARGE: 18,
+  LARGE: 24,
 };
 
 export const BorderRadius = {

@@ -20,16 +20,17 @@ import {
   TouchableOpacity,
   useColorScheme,
   View,
+  ViewStyle,
   type ListRenderItemInfo,
 } from "react-native";
 import { ThemedText } from "../common";
-import Seperator from "../common/Seperator";
 
 type CalendarProps = {
-  width: number; // 👈 accept width from parent
+  width: number;
+  style: ViewStyle;
 };
 
-export const Calendar = ({ width }: CalendarProps): ReactElement => {
+export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
   const dayItemWidth = useRef<number>(width / 7); // 👈 use prop width
   const [dateData, setDateData] = useState<calendarData | undefined>(undefined);
   const [todayIndex, setTodayIndex] = useState<number | undefined>(undefined);
@@ -167,7 +168,7 @@ export const Calendar = ({ width }: CalendarProps): ReactElement => {
   };
 
   return (
-    <View style={{ width }}>
+    <View style={{ width, ...style }}>
       <ThemedText style={styles.headerText} type="title">
         {currentMonth}
       </ThemedText>
@@ -195,7 +196,6 @@ export const Calendar = ({ width }: CalendarProps): ReactElement => {
           contentContainerStyle={styles.contentContainerStyle}
         />
       )}
-      <Seperator />
     </View>
   );
 };
