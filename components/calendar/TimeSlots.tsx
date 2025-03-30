@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     marginRight: 10,
     fontSize: 13,
-    marginTop: -7,
+    marginTop: -8,
     fontFamily: "Poppins_400Regular",
   },
   separator: {

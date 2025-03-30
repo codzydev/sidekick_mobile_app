@@ -11,7 +11,7 @@ export const Colors = {
     primaryText: "#2C2C2C",
     secondaryText: "#5A5A5A",
     tertiaryText: "#xxx",
-    background: "#FBFBFB",
+    background: "#FAFAFA",
     tint: tintColorLight,
     icon: "#687076",
     tabIconDefault: "#687076",
@@ -36,6 +36,7 @@ export const Colors = {
   primary: "#F7374F",
   secondary: "#F9A826",
   tertiary: "#F9A826",
+  success: "#4CAF50",
 
   task: {
     todo: "#A8A29E",
