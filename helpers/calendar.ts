@@ -144,3 +144,10 @@ export function getDaysInMonthSplitByWeek(
   }
   return result;
 }
+
+
+export const getTodayIndex = (dateArray: calendarData): number => {
+  return dateArray.findIndex((item: weekData) =>
+    item.some((subItem: dayData) => subItem.isToday)
+  );
+};

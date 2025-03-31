@@ -12,7 +12,7 @@ export const tabScreenOptions = {
   headerTransparent: false,
   headerStyle: {
     height: HEADER_HEIGHT,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: Colors.dark.background,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -32,6 +32,8 @@ export const tabScreenOptions = {
       <IconSymbol size={IMAGE_SIZE} name="gearshape" color="#1F1F1F" />
     </View>
   ),
+  headerTitle: () => null,
+
   // headerTitle: () => (
   //   <View style={styles.headerTitle}>
   //     <Text style={styles.headerText}>My Title</Text>

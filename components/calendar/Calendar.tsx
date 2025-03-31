@@ -4,6 +4,7 @@ import {
   calendarData,
   dayData,
   getDaysInMonthSplitByWeek,
+  getTodayIndex,
   weekData,
 } from "@/helpers";
 import { DateTime } from "luxon";
@@ -76,12 +77,6 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
   };
 
   const getMonthName = (date: DateTime): string => date.toFormat("MMM yyyy");
-
-  const getTodayIndex = (dateArray: calendarData): number => {
-    return dateArray.findIndex((item: weekData) =>
-      item.some((subItem: dayData) => subItem.isToday)
-    );
-  };
 
   const handleScroll = (event: any) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);

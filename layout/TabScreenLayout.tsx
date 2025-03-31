@@ -1,20 +1,17 @@
-import { Padding } from "@/constants/spacing";
+import { ThemedView } from "@/components";
+import { layoutSpacings } from "@/constants";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import React, { ReactNode } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { ThemedView } from "../common/ThemedView";
 
 type Props = {
   children: ReactNode;
 };
 
-export const DefaultLayout = ({ children }: Props) => {
+export const TabScreenLayout = ({ children }: Props) => {
   const backgroundColor = useThemeColor({}, "background");
   return (
-    <ScrollView
-      style={[styles.content, { backgroundColor }]}
-      nestedScrollEnabled
-    >
+    <ScrollView style={[styles.content, { backgroundColor }]}>
       <SafeAreaView />
       <ThemedView style={styles.content}>{children}</ThemedView>
     </ScrollView>
@@ -24,6 +21,6 @@ export const DefaultLayout = ({ children }: Props) => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    padding: Padding.MEDIUM,
+    ...layoutSpacings,
   },
 });

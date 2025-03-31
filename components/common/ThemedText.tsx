@@ -1,68 +1,59 @@
-import { StyleSheet, Text, type TextProps } from "react-native";
-
+import { FontSize } from "@/constants/fontSize";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { Text, TextProps } from "react-native";
+
+type Size = keyof typeof FontSize;
+type FontWeight = "regular" | "medium" | "semiBold" | "bold";
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
-  colorPallete?: "primaryText" | "secondaryText" | "tertiaryText";
+  size?: Size;
+  font?: FontWeight;
   numberOfLines?: number;
+  children: React.ReactNode;
 };
 
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = "default",
-  numberOfLines,
-  colorPallete,
+export function ThemedText(props: ThemedTextProps) {
+  const {
+    style,
+    lightColor,
+    darkColor,
+    size = "medium",
+    font = "regular",
+    numberOfLines,
+    children,
+    ellipsizeMode,
+  } = props;
 
-  ...rest
-}: ThemedTextProps) {
-  const pallet = colorPallete ?? "primaryText";
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, pallet);
+  const color = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "primaryText"
+  );
+
+  const fontSize = FontSize[size];
+  const fontFamily = {
+    regular: "Poppins_400Regular",
+    medium: "Poppins_500Medium",
+    semiBold: "Poppins_600SemiBold",
+    bold: "Poppins_700Bold",
+  }[font];
 
   return (
     <Text
-      numberOfLines={numberOfLines ?? undefined}
       style={[
-        { color },
-        type === "default" ? styles.default : undefined,
-        type === "title" ? styles.title : undefined,
-        type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
-        type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
+        {
+          color: color,
+          fontSize: fontSize,
+          fontFamily: fontFamily,
+          lineHeight: Math.round(fontSize * 1.5),
+        },
         style,
       ]}
-      {...rest}
-    />
+      numberOfLines={numberOfLines}
+      ellipsizeMode={ellipsizeMode}
+    >
+      {children}
+    </Text>
   );
 }
-const styles = StyleSheet.create({
-  default: {
-    fontFamily: "Poppins_400Regular",
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  defaultSemiBold: {
-    fontFamily: "Poppins_600SemiBold",
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  title: {
-    fontFamily: "Poppins_700Bold",
-    fontSize: 18,
-    lineHeight: 24,
-  },
-  subtitle: {
-    fontFamily: "Poppins_700Bold",
-    fontSize: 20,
-  },
-  link: {
-    fontFamily: "Poppins_500Medium",
-    lineHeight: 30,
-    fontSize: 16,
-    color: "#0a7ea4",
-  },
-});
