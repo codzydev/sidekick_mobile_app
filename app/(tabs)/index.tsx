@@ -1,5 +1,4 @@
-import { Completed, ThemedText } from "@/components";
-import { WeeklyBarChart } from "@/components/barChart/weekbarChart";
+import { CompletedBar, ThemedText } from "@/components";
 import { getDaysInMonthSplitByWeek, getTodayIndex } from "@/helpers";
 
 import { TabScreenLayout } from "@/layout";
@@ -27,18 +26,23 @@ const HomeScreen = () => {
       </ThemedText>
       <ThemedText size="small">Welcome Back !</ThemedText>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Completed />
-        <Completed />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <CompletedBar />
+        <CompletedBar />
       </View>
 
-      <View>
+      {/* <View>
         <WeeklyBarChart
           weeks={dataWithValues}
           activeWeekIndex={activeWeekIndex}
           onWeekChange={setActiveWeekIndex}
         />
-      </View>
+      </View> */}
     </TabScreenLayout>
   );
 };

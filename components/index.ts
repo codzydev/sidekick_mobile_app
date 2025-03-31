@@ -8,4 +8,4 @@ export * from "./common/ThemedView";
 
 export * from "./stepper/stepper";
 
-export * from "./analytics/completed";
+export * from "./analytics/completedBar";

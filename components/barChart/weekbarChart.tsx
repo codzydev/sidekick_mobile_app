@@ -26,32 +26,32 @@ export const WeeklyBarChart = ({
   const { width: windowWidth } = useWindowDimensions();
   const scrollViewRef = useRef<ScrollViewType>(null);
 
-  const BAR_CHART_WIDTH = windowWidth * 0.8;
-  const GAP = 10;
-  const MAX_BAR_HEIGHT = 150;
+  const BAR_CHART_WIDTH = windowWidth * 0.35;
+  const GAP = 10; // ❌ no gap between bars
+  const MAX_BAR_HEIGHT = 70;
   const LABEL_HEIGHT = 60;
 
   const activeWeek = weeks[activeWeekIndex] ?? [];
   const barWidth =
     (BAR_CHART_WIDTH - GAP * (activeWeek.length - 1)) / activeWeek.length;
 
-  // Scroll to the correct week on mount or when index changes
   useEffect(() => {
     scrollViewRef.current?.scrollTo({
-      x: activeWeekIndex * windowWidth,
+      x: activeWeekIndex * BAR_CHART_WIDTH,
       animated: false,
     });
-  }, [activeWeekIndex, windowWidth]);
+  }, [activeWeekIndex]);
 
   return (
-    <View style={{ height: MAX_BAR_HEIGHT + LABEL_HEIGHT, width: windowWidth }}>
+    <View
+      style={{
+        height: MAX_BAR_HEIGHT + LABEL_HEIGHT, // +10 to account for marginTop
+        width: BAR_CHART_WIDTH,
+        // justifyContent: "flex-end",
+      }}
+    >
       {/* Bar Chart */}
-      <View
-        style={[
-          styles.barRow,
-          { gap: GAP, marginHorizontal: (windowWidth - BAR_CHART_WIDTH) / 2 },
-        ]}
-      >
+      <View style={[styles.barRow, { gap: GAP }]}>
         {activeWeek.map((day, index) => (
           <SingleBarChart
             key={index}
@@ -66,37 +66,52 @@ export const WeeklyBarChart = ({
       <ScrollView
         ref={scrollViewRef}
         horizontal
-        pagingEnabled // ✅ use native paging instead of snapToInterval
-        decelerationRate="fast" // ✅ still useful
+        pagingEnabled
+        bounces={false}
+        decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={16} // ✅ react to scrolls quickly
+        scrollEventThrottle={16}
         onScroll={({ nativeEvent }) => {
-          const scrollOffset = nativeEvent.contentOffset.x;
-          const activeIndex = Math.round(scrollOffset / windowWidth);
-          onWeekChange(activeIndex);
+          const scrollOffset = Math.max(0, nativeEvent.contentOffset.x); // prevent bounce misindex
+          const newIndex = Math.round(scrollOffset / BAR_CHART_WIDTH);
+          onWeekChange(newIndex);
         }}
         style={{
-          width: windowWidth,
+          width: BAR_CHART_WIDTH,
           height: LABEL_HEIGHT,
+          marginTop: 10, // ✅ added margin top here
         }}
+        contentContainerStyle={{ alignItems: "center" }}
       >
         {weeks.map((week, index) => {
-          const start = DateTime.fromJSDate(week[0]?.day);
-          const end = DateTime.fromJSDate(week[6]?.day);
+          const start = DateTime.fromJSDate(week[0]?.day).startOf("day");
+          const end = DateTime.fromJSDate(week[6]?.day).startOf("day");
 
-          const label =
-            start.month === end.month
-              ? `${start.day} – ${end.day} ${start.toFormat("MMMM")}`
-              : `${start.day} ${start.toFormat("MMMM")} – ${
-                  end.day
-                } ${end.toFormat("MMMM")}`;
+          const today = DateTime.now().startOf("day");
+          const currentWeekStart = today.minus({ days: today.weekday - 1 }); // force to Monday
+          const currentWeekEnd = currentWeekStart.plus({ days: 6 });
+
+          const isThisWeek =
+            start.hasSame(currentWeekStart, "day") &&
+            end.hasSame(currentWeekEnd, "day");
+
+          console.log(
+            `today: ${today} currentWeekStart: ${currentWeekStart} currentWeekEnd: ${currentWeekEnd} isThisWeek: ${isThisWeek}`
+          );
+
+          const label = isThisWeek
+            ? "This Week"
+            : start.month === end.month
+            ? `${start.day} – ${end.day} ${start.toFormat("MMM")}`
+            : `${start.day} ${start.toFormat("MMM")} – ${
+                end.day
+              } ${end.toFormat("MMM")}`;
 
           return (
             <View
               key={index}
               style={{
-                width: windowWidth,
-                height: LABEL_HEIGHT,
+                width: BAR_CHART_WIDTH,
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -112,8 +127,8 @@ export const WeeklyBarChart = ({
 
 const styles = StyleSheet.create({
   barRow: {
-    height: 150,
     flexDirection: "row",
+    height: "75%",
     alignItems: "flex-end",
   },
   label: {

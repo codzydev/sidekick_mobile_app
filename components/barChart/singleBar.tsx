@@ -50,7 +50,7 @@ export const SingleBarChart = ({
           color: "white",
         }}
       >
-        {DateTime.fromJSDate(day.day).toFormat("ccc").toUpperCase()}
+        {DateTime.fromJSDate(day.day).toFormat("ccc").charAt(0).toUpperCase()}
       </Text>
     </View>
   );
