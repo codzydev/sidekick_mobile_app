@@ -30,6 +30,7 @@ export const Colors = {
     tabIconSelected: tintColorDark,
     card: "#333338",
     shadow: "#3A3A3A",
+    header: "#1F1F1F",
   },
   activeOpacity: 1,
   inactiveOpacity: 0.45,

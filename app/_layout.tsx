@@ -43,11 +43,26 @@ export default function RootLayout() {
     return null;
   }
 
+  const tabScreenOptions = {
+    headerShown: false,
+    headerStyle: {
+      height: 0,
+      backgroundColor: "red",
+    },
+    headerStatusBarHeight: 0,
+    // headerForceInset: { top: "never", bottom: "never" },
+  };
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaView style={{ backgroundColor }} />
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="task" options={{ headerShown: false }} />
       </Stack>
