@@ -1,13 +1,13 @@
 import { DateTime } from "luxon";
 import { useEffect, useRef } from "react";
 import {
-    ScrollView,
-    ScrollView as ScrollViewType,
-    StyleSheet,
-    Text,
-    useWindowDimensions,
-    View,
+  ScrollView,
+  ScrollView as ScrollViewType,
+  StyleSheet,
+  useWindowDimensions,
+  View,
 } from "react-native";
+import { ThemedText } from "../common/ThemedText";
 import { Day, SingleBarChart } from "./singleBar";
 
 type Week = Day[];
@@ -47,7 +47,7 @@ export const WeeklyBarChart = ({
       style={{
         height: MAX_BAR_HEIGHT + LABEL_HEIGHT, // +10 to account for marginTop
         width: BAR_CHART_WIDTH,
-        // justifyContent: "flex-end",
+        justifyContent: "flex-end",
       }}
     >
       {/* Bar Chart */}
@@ -78,45 +78,43 @@ export const WeeklyBarChart = ({
         }}
         style={{
           width: BAR_CHART_WIDTH,
-          height: LABEL_HEIGHT,
-          marginTop: 10, // ✅ added margin top here
         }}
         contentContainerStyle={{ alignItems: "center" }}
       >
         {weeks.map((week, index) => {
-          const start = DateTime.fromJSDate(week[0]?.day).startOf("day");
-          const end = DateTime.fromJSDate(week[6]?.day).startOf("day");
-
           const today = DateTime.now().startOf("day");
-          const currentWeekStart = today.minus({ days: today.weekday - 1 }); // force to Monday
-          const currentWeekEnd = currentWeekStart.plus({ days: 6 });
 
-          const isThisWeek =
-            start.hasSame(currentWeekStart, "day") &&
-            end.hasSame(currentWeekEnd, "day");
+          const weekStart = DateTime.fromJSDate(week[0]?.day).startOf("day");
+          const weekEnd = DateTime.fromJSDate(week[6]?.day).startOf("day");
 
-          console.log(
-            `today: ${today} currentWeekStart: ${currentWeekStart} currentWeekEnd: ${currentWeekEnd} isThisWeek: ${isThisWeek}`
-          );
+          const currentWeekStart = today.minus({ days: today.weekday - 1 }); // Monday
+          const lastWeekStart = currentWeekStart.minus({ days: 7 });
+          const nextWeekStart = currentWeekStart.plus({ days: 7 });
 
-          const label = isThisWeek
+          const isSameWeek = (a: DateTime, b: DateTime) =>
+            a.hasSame(b, "week") && a.year === b.year;
+
+          const label = isSameWeek(weekStart, currentWeekStart)
             ? "This Week"
-            : start.month === end.month
-            ? `${start.day} – ${end.day} ${start.toFormat("MMM")}`
-            : `${start.day} ${start.toFormat("MMM")} – ${
-                end.day
-              } ${end.toFormat("MMM")}`;
+            : isSameWeek(weekStart, lastWeekStart)
+            ? "Last Week"
+            : isSameWeek(weekStart, nextWeekStart)
+            ? "Next Week"
+            : weekStart.month === weekEnd.month
+            ? `${weekStart.day} – ${weekEnd.day} ${weekStart.toFormat("MMM")}`
+            : `${weekStart.day} ${weekStart.toFormat("MMM")} – ${
+                weekEnd.day
+              } ${weekEnd.toFormat("MMM")}`;
 
           return (
             <View
               key={index}
               style={{
                 width: BAR_CHART_WIDTH,
-                justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <Text style={styles.label}>{label}</Text>
+              <ThemedText size="small">{label}</ThemedText>
             </View>
           );
         })}
@@ -128,12 +126,11 @@ export const WeeklyBarChart = ({
 const styles = StyleSheet.create({
   barRow: {
     flexDirection: "row",
-    height: "75%",
+    height: "80%",
     alignItems: "flex-end",
   },
   label: {
     color: "white",
     fontSize: 14,
-    fontFamily: "FiraCode-Regular",
   },
 });

@@ -64,7 +64,7 @@ export const Calendar = ({ width, style }: CalendarProps): ReactElement => {
 
   const getCurrentMonth = (): calendarData => {
     const now: DateTime = DateTime.now();
-    return getDaysInMonthSplitByWeek(now.month, now.year, true);
+    return getDaysInMonthSplitByWeek(now.month, now.year);
   };
 
   const getMonthRange = (startWeek: weekData, endWeek: weekData): string => {

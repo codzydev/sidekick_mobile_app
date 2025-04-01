@@ -1,9 +1,11 @@
+import { BorderRadius, Margin } from "@/constants";
 import { DateTime } from "luxon";
-import { Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import { ThemedText } from "../common/ThemedText";
 
 export type Day = {
   day: Date;
@@ -29,29 +31,23 @@ export const SingleBarChart = ({
   }, [day.value, maxHeight]);
   return (
     <View>
-      <Animated.View
-        style={[
-          {
-            width: width,
-            backgroundColor: "white",
-            borderRadius: 15,
-            borderCurve: "continuous",
-          },
-          rStyle,
-        ]}
-      />
-      <Text
-        style={{
-          width: width,
-          textAlign: "center",
-          fontSize: 12,
-          marginTop: 5,
-          textTransform: "uppercase",
-          color: "white",
-        }}
-      >
+      <Animated.View style={[styles.bar, { width }, rStyle]} />
+      <ThemedText size="extraSmall" style={[styles.text, { width }]}>
         {DateTime.fromJSDate(day.day).toFormat("ccc").charAt(0).toUpperCase()}
-      </Text>
+      </ThemedText>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: "center",
+    marginTop: Margin.SMALL / 4,
+    textTransform: "uppercase",
+  },
+  bar: {
+    backgroundColor: "white",
+    borderRadius: BorderRadius.MEDIUM,
+    borderCurve: "continuous",
+  },
+});
