@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     padding: Padding.SMALL,
     width: "48%",
+    // height: 180,
   },
   title: {
     textAlign: "left",

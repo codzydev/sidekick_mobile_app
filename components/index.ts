@@ -10,3 +10,4 @@ export * from "./common/CardView";
 export * from "./stepper/stepper";
 
 export * from "./analytics/completedBar";
+export * from "./analytics/expenceCard";

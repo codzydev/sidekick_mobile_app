@@ -1,4 +1,5 @@
-import { CompletedBar, ThemedText } from "@/components";
+import { CompletedBar, ExpenceCard, ThemedText } from "@/components";
+import { GAP } from "@/constants";
 
 import { TabScreenLayout } from "@/layout";
 import { StyleSheet, View } from "react-native";
@@ -8,10 +9,10 @@ const HomeScreen = () => {
 
   return (
     <TabScreenLayout>
-      <ThemedText size="large" font="bold">
-        Hello John Smith
+      <ThemedText size="extraLarge" font="bold">
+        Hello John Smith {"\n"}
+        <ThemedText size="small">Welcome Back !</ThemedText>
       </ThemedText>
-      <ThemedText size="small">Welcome Back !</ThemedText>
 
       <View
         style={{
@@ -20,6 +21,10 @@ const HomeScreen = () => {
         }}
       >
         <CompletedBar />
+        <View style={styles.rightContainer}>
+          <ExpenceCard />
+          <ExpenceCard />
+        </View>
       </View>
     </TabScreenLayout>
   );
@@ -27,6 +32,12 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   container: {},
+  rightContainer: {
+    gap: GAP * 1.5,
+    width: "48%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default HomeScreen;

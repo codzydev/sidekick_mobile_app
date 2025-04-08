@@ -1,4 +1,5 @@
 import { BorderRadius, Margin } from "@/constants";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { DateTime } from "luxon";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -29,9 +30,11 @@ export const SingleBarChart = ({
       opacity: withTiming(day.value),
     };
   }, [day.value, maxHeight]);
+
+  const backgroundColor = useThemeColor({}, "primaryText");
   return (
     <View>
-      <Animated.View style={[styles.bar, { width }, rStyle]} />
+      <Animated.View style={[styles.bar, { width, backgroundColor }, rStyle]} />
       <ThemedText size="extraSmall" style={[styles.text, { width }]}>
         {DateTime.fromJSDate(day.day).toFormat("ccc").charAt(0).toUpperCase()}
       </ThemedText>
@@ -46,7 +49,6 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   bar: {
-    backgroundColor: "white",
     borderRadius: BorderRadius.MEDIUM,
     borderCurve: "continuous",
   },
