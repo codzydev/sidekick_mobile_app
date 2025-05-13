@@ -4,12 +4,15 @@ import { layoutSpacings } from "@/constants";
 import React from "react";
 import { StyleSheet } from "react-native";
 import TaskWrapper from ".";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const _layout = () => {
   return (
-    <ThemedView style={styles.container}>
-      <TaskWrapper />
-    </ThemedView>
+    <>
+      <SafeAreaView />
+      <ThemedView style={styles.container}>
+        <TaskWrapper />
+      </ThemedView></>
   );
 };
 

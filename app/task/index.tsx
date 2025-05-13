@@ -2,6 +2,7 @@ import { Stepper } from "@/components";
 import { Steps } from "@/constants";
 import React, { useState } from "react";
 import { Button, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const TaskWrapper = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -20,14 +21,16 @@ const TaskWrapper = () => {
   };
   const isLastStep = currentStep === steps.length - 1;
   return (
-    <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <Stepper steps={steps} currentStep={currentStep} />
-      <View style={{ paddingHorizontal: 16, marginTop: 20, gap: 10 }}>
-        {!isLastStep && <Button title="Next" onPress={handleNext} />}
-        {isLastStep && <Button title="Done" onPress={handleSubmit} />}
-        {currentStep > 0 && <Button title="Previous" onPress={handlePrev} />}
+    <>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Stepper steps={steps} currentStep={currentStep} />
+        <View style={{ paddingHorizontal: 16, marginTop: 20, gap: 10 }}>
+          {!isLastStep && <Button title="Next" onPress={handleNext} />}
+          {isLastStep && <Button title="Done" onPress={handleSubmit} />}
+          {currentStep > 0 && <Button title="Previous" onPress={handlePrev} />}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

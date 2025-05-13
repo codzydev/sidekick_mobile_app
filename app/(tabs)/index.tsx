@@ -3,12 +3,14 @@ import { GAP } from "@/constants";
 
 import { TabScreenLayout } from "@/layout";
 import { StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
   // return <Redirect href="/task" />;
 
   return (
     <TabScreenLayout>
+      <SafeAreaView />
       <ThemedText size="extraLarge" font="bold">
         Hello John Smith {"\n"}
         <ThemedText size="small">Welcome Back !</ThemedText>
