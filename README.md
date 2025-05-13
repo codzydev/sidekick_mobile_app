@@ -1,3 +1,11 @@
+## App Screenshots
+
+![Screenshot 1 - Animated bars, animati](assets/screenShots/ss_1.gif)
+![Screenshot 2 - Calendar like Agenda](assets/screenShots/ss_2.png)
+![Screenshot 3 - Animated Stepper counter](assets/screenShots/ss_3.gif)
+
+
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
